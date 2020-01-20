@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const colors = require('colors');
+const hash = require('object-hash');
 const _ = require('lodash');
 const {
     getId,
@@ -453,12 +454,18 @@ router.post('/product/addtocart', async (req, res, next) => {
         }catch(ex){}
     }
 
+    // Product with options hash
+    const productHash = hash.sha1({
+        productId: product._id.toString(),
+        options
+    });
+
     // if exists we add to the existing value
     let cartQuantity = 0;
-    if(req.session.cart[product._id]){
-        cartQuantity = parseInt(req.session.cart[product._id].quantity) + productQuantity;
-        req.session.cart[product._id].quantity = cartQuantity;
-        req.session.cart[product._id].totalItemPrice = productPrice * parseInt(req.session.cart[product._id].quantity);
+    if(req.session.cart[productHash]){
+        cartQuantity = parseInt(req.session.cart[productHash].quantity) + productQuantity;
+        req.session.cart[productHash].quantity = cartQuantity;
+        req.session.cart[productHash].totalItemPrice = productPrice * parseInt(req.session.cart[productHash].quantity);
     }else{
         // Set the card quantity
         cartQuantity = productQuantity;
@@ -480,7 +487,7 @@ router.post('/product/addtocart', async (req, res, next) => {
         }
 
         // merge into the current cart
-        req.session.cart[product._id] = productObj;
+        req.session.cart[productHash] = productObj;
     }
 
     // Update cart to the DB
