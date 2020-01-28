@@ -69,7 +69,7 @@
     "string-strip-html": "^4.3.14",
     "strip-bom": "^3.0.0",
     "stripe": "^7.12.0",
-    "uglifycss": "0.0.27",
+    "uglifycss": "0.0.29",
     "yenv": "^2.1.1"
   },
   "devDependencies": {
