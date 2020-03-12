@@ -51,7 +51,7 @@
     "lunr": "^2.3.8",
     "mime-db": "^1.43.0",
     "mime-type": "^3.0.7",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.0",
     "moment": "^2.24.0",
     "mongodb": "^3.3.3",
     "mongodb-uri": "^0.9.7",
